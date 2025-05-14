@@ -10,6 +10,9 @@ import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js';
 import { checkAuth , fetchRole , fetchId} from "./authorizer.ts";
 import {PrismaClient } from "@prisma/client";
 import {Kafka , Partitioners , logLevel} from "kafkajs";
+
+dotenv.config();
+
 (async function () {
 
     const prisma = new PrismaClient();
@@ -23,7 +26,7 @@ import {Kafka , Partitioners , logLevel} from "kafkajs";
 
     const kafka = new Kafka({
         clientId: "BookingService",
-        brokers: ["localhost:9092"],
+        brokers: [process.env.KAFKA_URL],
     });
 
     const producer = kafka.producer({

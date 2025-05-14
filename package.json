@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start" : "node backend/src/Booking.ts"
+    "start" : "npx prisma generate && npx tsc && node backend/src/Booking.ts"
   },
   "author": "",
   "license": "ISC",

@@ -381,7 +381,7 @@ dotenv.config();
                 const userId = fetchId(req.headers.cookie);
                 const subRides = await prisma.subRides.findMany({
                     where: {
-                        driverId: userid
+                        driverId: userId
                     }
                 });
                 const subRideIds = [];
@@ -389,11 +389,11 @@ dotenv.config();
                     subRideIds.push(subRides[i].id);
                 }
                 const requestsList = [];
-                for(let i = 0 ; i < subRideIds.length ; i++ {
+                for(let i = 0 ; i < subRideIds.length ; i++) {
                     const currentSubRideId = subRideIds[i];
                     const requests = await prisma.request.findMany({
                         where: {
-                            rideId: currentSubRideId;
+                            rideId: currentSubRideId
                         }
                     });
                     for(let j = 0 ; j < requests.length ; j++)

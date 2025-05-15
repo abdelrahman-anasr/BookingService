@@ -339,6 +339,7 @@ dotenv.config();
             fetchMyBookings: [Booking]
             fetchMyRequests: [Request]
             fetchRequestsForRide(rideId: Int!): [Request]
+            fetchRequestsForAllMyRides: [Request]
             fetchBookingsForRide(rideId: Int!): [Booking]
             rejectRequest(id: Int!): Request
             requestPaymentSend(bookingId : Int! , userId : Int!): String
@@ -373,6 +374,36 @@ dotenv.config();
                 {
                     throw new Error("Unauthorized");
                 }
+            },
+            fetchRequestsForAllMyRides: async(_parent : any , args : any , {req , res} : any) => {
+                if(!checkAuth(["driver"] , fetchRole(req.headers.cookie)))
+                    throw new Error("Unauthorized");
+                const userId = fetchId(req.headers.cookie);
+                const subRides = await prisma.subRides.findMany({
+                    where: {
+                        driverId: userid
+                    }
+                });
+                const subRideIds = [];
+                for(let i = 0 ; i < subRides.length ; i++) {
+                    subRideIds.push(subRides[i].id);
+                }
+                const requestsList = [];
+                for(let i = 0 ; i < subRideIds.length ; i++ {
+                    const currentSubRideId = subRideIds[i];
+                    const requests = await prisma.request.findMany({
+                        where: {
+                            rideId: currentSubRideId;
+                        }
+                    });
+                    for(let j = 0 ; j < requests.length ; j++)
+                    {
+                        requestsList.push(requests[i]);
+                    }
+                }
+
+                return requestsList;
+                
             },
             fetchAllBookings: async(_parent : any , args : any , {req , res} : any) => {
                 if(checkAuth(["admin"] , fetchRole(req.headers.cookie)))

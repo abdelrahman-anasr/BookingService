@@ -378,6 +378,7 @@ dotenv.config();
             fetchRequestsForAllMyRides: async(_parent : any , args : any , {req , res} : any) => {
                 if(!checkAuth(["driver"] , fetchRole(req.headers.cookie)))
                     throw new Error("Unauthorized");
+                console.log("Entered fetchRequestsForAllMyRides");
                 const userId = fetchId(req.headers.cookie);
                 const subRides = await prisma.subRides.findMany({
                     where: {
@@ -401,7 +402,7 @@ dotenv.config();
                         requestsList.push(requests[i]);
                     }
                 }
-
+                console.log("Returning: " + requestsList);
                 return requestsList;
                 
             },

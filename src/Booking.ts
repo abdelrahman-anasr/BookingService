@@ -400,7 +400,8 @@ dotenv.config();
                             rideId: currentSubRideId
                         }
                     });
-                    console.log("Requests: " + requests);
+                    console.log("Requests: " + JSON.stringify(requests));
+                    console.log("Requests length: " + requests.length);
                     for(let j = 0 ; j < requests.length ; j++)
                     {
                         requestsList.push(requests[i]);

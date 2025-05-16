@@ -590,7 +590,7 @@ dotenv.config();
                             status : "Rejected"
                         }
                     });
-                    console.log("Returning: " + updatedRequest);
+                    console.log("Returning: " + JSON.stringify(updatedRequest));
                     return updatedRequest;
                 }
                 else

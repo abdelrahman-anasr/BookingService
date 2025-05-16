@@ -390,14 +390,17 @@ dotenv.config();
                 for(let i = 0 ; i < subRides.length ; i++) {
                     subRideIds.push(subRides[i].id);
                 }
+                console.log("SubRideIds: " + subRideIds);
                 const requestsList = [];
                 for(let i = 0 ; i < subRideIds.length ; i++) {
                     const currentSubRideId = subRideIds[i];
+                    console.log("CurrentSubRideId: " + currentSubRideId);
                     const requests = await prisma.request.findMany({
                         where: {
                             rideId: currentSubRideId
                         }
                     });
+                    console.log("Requests: " + requests);
                     for(let j = 0 ; j < requests.length ; j++)
                     {
                         requestsList.push(requests[i]);

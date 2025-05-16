@@ -438,7 +438,11 @@ dotenv.config();
                             id : args.id
                         }
                     });
-                    const ride = rides.find(ride => ride.id === booking.rideId);
+                    const ride = await prisma.subRides.findUnique({
+                        where: {
+                            id : booking.rideId
+                        }
+                    });
                     if(ride === undefined)
                         throw new Error("Ride not found");
                     if(ride.driverId !== fetchId(req.headers.cookie))
@@ -467,7 +471,11 @@ dotenv.config();
                             id : args.id
                         }
                     });
-                    const ride = rides.find(ride => ride.id === request.rideId);
+                    const ride = await prisma.subRides.findUnique({
+                        where: {
+                            id : request.rideId
+                        }
+                    });
                     if(ride === undefined)
                         throw new Error("Ride not found");
                     if(ride.driverId !== fetchId(req.headers.cookie))
@@ -526,7 +534,11 @@ dotenv.config();
                             rideId: args.rideId
                         }
                     });
-                    const ride = rides.find(ride => ride.id === requests[0].rideId);
+                    const ride = await prisma.subRides.findUnique({
+                        where: {
+                            id : requests[0].rideId
+                        }
+                    });
                     if(ride === undefined)
                         throw new Error("Ride not found");
                     if(ride.driverId !== fetchId(req.headers.cookie))
@@ -555,7 +567,11 @@ dotenv.config();
                             rideId: args.rideId
                         }
                     });
-                    const ride = rides.find(ride => ride.id === bookings[0].rideId);
+                    const ride = await prisma.subRides.findUnique({
+                        where: {
+                            id : bookings[0].rideId
+                        }
+                    });
                     if(ride === undefined)
                         throw new Error("Ride not found");
                     if(ride.driverId !== fetchId(req.headers.cookie))
@@ -577,7 +593,11 @@ dotenv.config();
                         }
                     });
                     console.log("Request: " + request);
-                    const ride = rides.find(ride => ride.id === request.rideId);
+                    const ride = await prisma.subRides.findUnique({
+                        where: {
+                            id : request.rideId
+                        }
+                    });
                     if(ride === undefined)
                         throw new Error("Ride not found");
                     if(ride.driverId !== fetchId(req.headers.cookie))

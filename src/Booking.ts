@@ -570,11 +570,13 @@ dotenv.config();
             rejectRequest: async(_parent : any , args : any , {req , res} : any) => {
                 if(checkAuth(["driver"] , fetchRole(req.headers.cookie)))
                 {
+                    console.log("Entered rejectRequest");
                     const request = await prisma.request.findUnique({
                         where: {
                             id : args.id
                         }
                     });
+                    console.log("Request: " + request);
                     const ride = rides.find(ride => ride.id === request.rideId);
                     if(ride === undefined)
                         throw new Error("Ride not found");
@@ -588,6 +590,7 @@ dotenv.config();
                             status : "Rejected"
                         }
                     });
+                    console.log("Returning: " + updatedRequest);
                     return updatedRequest;
                 }
                 else

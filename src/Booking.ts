@@ -322,6 +322,7 @@ dotenv.config();
             studentId: Int!
             rideId: Int!
             status: String!
+            subZoneName: String!
             price: Float!
         }
 

@@ -402,6 +402,8 @@ dotenv.config();
                     });
                     console.log("Requests length: " + requests.length);
                     requests.forEach(request => {
+                        if(request.status === "Rejected" || request.status === "Accepted")
+                            return;
                         console.log("Request Pushed: " + request.id);
                         requestsList.push(request);
                     });
